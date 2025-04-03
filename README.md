@@ -2,37 +2,6 @@
 
 ```
 .
-├── app
-│   └── volumes
-└── infra
-    └── volumes
-        ├── kafka
-        │   └── kafka-eagle
-        ├── mysql
-        │   └── docker-entrypoint-initdb.d
-        ├── nginx
-        │   ├── conf
-        │   │   └── conf.d
-        │   ├── html
-        │   ├── logs
-        │   └── ssl
-        ├── ollama
-        │   └── models
-        │       ├── blobs
-        │       └── manifests
-        │           └── registry.ollama.ai
-        │               └── library
-        │                   ├── deepseek-r1
-        │                   └── nomic-embed-text
-        ├── open-webui
-        ├── pgvector
-        │   └── sql
-        ├── rabbitmq
-        └── redis
-```
-
-```
-.
 ├── README.md
 ├── app
 │   ├── .env
@@ -41,8 +10,8 @@
 │   └── volumes
 │       └── app
 └── infra
-│   ├── .env
-│   ├── .env.app.template
+    ├── .env
+    ├── .env.app.template
     ├── docker-compose-kafka-eagle.yaml
     ├── docker-compose-kafka.yaml
     ├── docker-compose-mysql.yaml
@@ -84,7 +53,4 @@
         │   └── enabled_plugins
         └── redis
             └── redis.conf
-
-22 directories, 26 files
-
 ```
