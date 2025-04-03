@@ -1,0 +1,36 @@
+networks:
+  local-network:
+    driver: bridge
+    name: infra_network
+    external: false
+
+# NOTE:
+# docker-compose -f docker-compose-ollama.yaml up -d
+# 启动后,
+# 1) 如何拉取模型?
+# step1: 进入到容器内部
+#   docker-compose exec ollama sh
+# step2: 拉取模型
+#   ollama pull deepseek-r1:1.5b
+#   ollama pull nomic-embed-text
+# 2) 如何验证?
+# curl http://localhost:11434/api/generate \
+#   -H "Content-Type: application/json"
+#   -d '{
+#   "model": "deepseek-r1:1.5b",
+#   "prompt": "1+1",
+#   "stream": false
+#   }'
+#
+services:
+  ollama:
+    image: ollama/ollama:0.5.10
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    networks:
+      - local-network
+    volumes:
+      - ./volumes/ollama:/root/.ollama
+    # environment:
+    #   - OLLAMA_HOST=0.0.0.0

@@ -1,0 +1,29 @@
+networks:
+  local-network:
+    driver: bridge
+    name: infra_network
+    external: false
+
+services:
+  pgvector:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: spring-ai
+      PGPASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      #  容器启动时, 依次执行目录下的所有 sql 文件, 执行顺序字典序
+      - ./volumes/pgvector/sql:/docker-entrypoint-initdb.d
+    networks:
+      - local-network
+    healthcheck:
+      test: "pg_isready -U postgres -d spring-ai"
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 15s

@@ -1,0 +1,17 @@
+networks:
+  local-network:
+    driver: bridge
+    name: infra_network
+    external: false
+
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    restart: unless-stopped
+    ports:
+      - "3333:8080"
+    volumes:
+      - ./volumes/open-webui:/app/backend/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+

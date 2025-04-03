@@ -1,0 +1,22 @@
+networks:
+  local-network:
+    driver: bridge
+    name: infra_network
+    external: false
+
+services:
+  # doc https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/wordpress/README.md
+  wordpress:
+    image: wordpress:latest
+    restart: unless-stopped
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: 123456
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - ./volumes/wordpress/data:/var/www/html
+    ports:
+      - "8000:80"
+    networks:
+      - local-network
